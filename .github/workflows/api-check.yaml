@@ -1,0 +1,77 @@
+name: API Check
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  api-check:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run Diff
+        run: pnpm api:check --report
+
+      - name: Check for API report
+        id: check-diff
+        run: |
+          if [ -f api-diff.txt ]; then
+            echo "api-diff exists"
+            echo "diff-exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "api-diff does not exist"
+            echo "diff-exists=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Log API report
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.check-diff.outputs.diff-exists == 'true'
+        run: cat api-diff.txt
+
+      - name: Find Comment
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/find-comment@v3
+        id: fc
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: API Diff
+        
+      - name: Create or update comment
+        if: github.event_name == 'pull_request' && steps.check-diff.outputs.diff-exists == 'true'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          comment-id: ${{ steps.fc.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body-path: api-diff.txt
+          edit-mode: replace
+
+      - name: Delete comment
+        if: github.event_name == 'pull_request' && steps.check-diff.outputs.diff-exists == 'false'
+        uses: detomarco/delete-comments@1.1.0
+        with:
+          comment-id: ${{ steps.fc.outputs.comment-id }}
+
+      - name: Fail Workflow if API Diff Exists
+        if: steps.check-diff.outputs.diff-exists == 'true'
+        run: |
+          echo "Please update the local API file."
+          exit 1

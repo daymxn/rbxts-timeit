@@ -1,0 +1,4 @@
+[tools]
+rojo = "rojo-rbx/rojo@7.4.4"
+lune = "filiptibell/lune@0.8.9"
+stylua = "johnnymorganz/stylua@0.14.2"

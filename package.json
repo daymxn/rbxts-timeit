@@ -1,0 +1,102 @@
+{
+	"name": "@rbxts/timeit",
+	"version": "1.0.0",
+	"description": "Performance timer for ROBLOX.",
+	"main": "out/init.luau",
+	"scripts": {
+		"build": "rbxtsc -p ./tsconfig.release.json",
+		"build:dev": "rbxtsc -p --type game --rojo test.project.json",
+		"dev": "rbxtsc -w --type game --rojo test.project.json",
+		"watch": "rbxtsc -w",
+		"scripts:build": "pnpm -C scripts run build",
+		"scripts:watch": "pnpm scripts:build -w",
+		"api:extract": "api-extractor run --local --verbose",
+		"api:update": "pnpm build && pnpm api:extract",
+		"api:check": "pnpm cli diff ./api/timeit.api.md  -o ./api-diff.txt",
+		"api": "pnpm api:update",
+		"format": "pnpm eslint . --fix",
+		"lint:check": "pnpm eslint . --max-warnings=0",
+		"lint": "pnpm format",
+		"change": "pnpm changeset add",
+		"change:status": "pnpm changeset status",
+		"change:export": "pnpm changeset status --output changes.json",
+		"change:publish": "pnpm changeset publish",
+		"release:version": "pnpm changeset version",
+		"release:tags": "git push --follow-tags",
+		"release": "pnpm build && pnpm change:publish",
+		"publish:local": "pnpm build && pnpm pack --pack-destination ./temp",
+		"prepublishOnly": "pnpm build",
+		"lock": "pnpm i --lockfile-only",
+		"check:deps": "pnpm dlx depcheck",
+		"preinstall": "npx only-allow pnpm",
+		"lune:setup": "rokit install && lune setup",
+		"test:build": "rojo build test.project.json -o ./tests/test.rbxl",
+		"test:update": "pnpm build:dev && pnpm test:build",
+		"test:run": "lune run ./tests/lune ./tests/test.rbxl",
+		"test:report": "pnpm test:run -- --json --markdown --exit",
+		"test:debug": "pnpm test:run -- --redirect-output",
+		"test": "pnpm test:update && pnpm test:debug",
+		"postinstall": "pnpm lune:setup"
+	},
+	"keywords": [
+		"rbxts",
+		"timeit",
+		"timer",
+		"performance",
+		"report",
+		"os.clock",
+		"typescript",
+		"roblox"
+	],
+	"author": "Daymon Littrell-Reyes",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/daymxn/rbxts-timeit.git"
+	},
+	"bugs": {
+		"url": "https://github.com/daymxn/rbxts-timeit/issues"
+	},
+	"license": "Apache-2.0",
+	"types": "out/index.d.ts",
+	"files": [
+		"out",
+		"!**/tests/**",
+		"!**/*.tsbuildinfo",
+		"!**/*.spec.lua",
+		"!**/*.spec.luau",
+		"!**/*.spec.ts",
+		"!**/*.spec.d.ts"
+	],
+	"publishConfig": {
+		"access": "public"
+	},
+	"devDependencies": {
+		"@changesets/cli": "^2.27.7",
+		"@microsoft/api-extractor": "^7.47.9",
+		"@rbxts/compiler-types": "^3.0.0-types.0",
+		"@rbxts/object-utils": "^1.0.4",
+		"@rbxts/testez": "git+https://github.com/daymxn/testez.git#patch-1",
+		"@rbxts/types": "^1.0.795",
+		"@typescript-eslint/eslint-plugin": "^7.1.1",
+		"@typescript-eslint/parser": "^7.1.1",
+		"cli": "workspace:scripts",
+		"eslint": "^8.57.0",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-headers": "^1.1.2",
+		"eslint-plugin-prettier": "^5.1.3",
+		"eslint-plugin-roblox-ts": "^0.0.36",
+		"prettier": "^3.2.5",
+		"prettier-plugin-organize-imports": "^4.0.0",
+		"roblox-ts": "^3.0.0-next",
+		"typescript": "=5.5.3"
+	},
+	"dependencies": {
+		"@rbxts/expect": "^2.0.1",
+		"@rbxts/services": "^1.5.5",
+		"@rbxts/string-utils": "^1.0.3",
+		"@rbxts/t": "^3.1.1"
+	},
+	"peerDependencies": {
+		"roblox-ts": "^3.0.0"
+	}
+}

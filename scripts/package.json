@@ -1,0 +1,24 @@
+{
+	"name": "cli",
+	"version": "1.0.0",
+	"private": true,
+	"main": "out/cli.js",
+	"bin": {
+		"cli": "out/cli.js"
+	},
+	"scripts": {
+		"build": "pnpm --package=typescript dlx tsc --project tsconfig.scripts.json",
+		"prepublishOnly": "pnpm build"
+	},
+	"devDependencies": {
+		"@types/fs-extra": "^11.0.4",
+		"@types/node": "^22.5.5",
+		"typescript": "=5.5.3"
+	},
+	"dependencies": {
+		"@commander-js/extra-typings": "^12.1.0",
+		"commander": "^12.1.0",
+		"fs-extra": "^11.2.0",
+		"ts-expose-internals": "npm:ts-expose-internals@=5.5.3"
+	}
+}

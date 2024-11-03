@@ -1,0 +1,8 @@
+node_modules
+out
+*.tsbuildinfo
+/docs
+dist
+temp
+/tests/*.rbxl
+sourcemap.json
