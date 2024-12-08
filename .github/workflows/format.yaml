@@ -1,4 +1,4 @@
-name: Lint
+name: Format
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ on:
       - main
 
 jobs:
-  lint:
+  format:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -29,5 +29,5 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Lint check
-        run: pnpm bs lint:check
+      - name: Format check
+        run: pnpm bs format:check

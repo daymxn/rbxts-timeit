@@ -22,14 +22,14 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22.11.0
           cache: pnpm
 
       - name: Install dependencies
         run: pnpm install
 
       - name: Run Diff
-        run: pnpm api:check --report
+        run: pnpm bs api:report
 
       - name: Check for API report
         id: check-diff
@@ -41,7 +41,7 @@ jobs:
             echo "api-diff does not exist"
             echo "diff-exists=false" >> $GITHUB_OUTPUT
           fi
-      
+
       - name: Log API report
         if: github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.check-diff.outputs.diff-exists == 'true'
         run: cat api-diff.txt
@@ -52,9 +52,9 @@ jobs:
         id: fc
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          comment-author: 'github-actions[bot]'
+          comment-author: "github-actions[bot]"
           body-includes: API Diff
-        
+
       - name: Create or update comment
         if: github.event_name == 'pull_request' && steps.check-diff.outputs.diff-exists == 'true'
         uses: peter-evans/create-or-update-comment@v4

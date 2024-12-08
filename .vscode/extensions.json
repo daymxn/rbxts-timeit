@@ -1,6 +1,14 @@
 {
-	"recommendations": [
-		"roblox-ts.vscode-roblox-ts",
-		"dbaeumer.vscode-eslint"
-	]
+  "recommendations": [
+    "roblox-ts.vscode-roblox-ts",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "JohnnyMorganz.luau-lsp",
+    "JohnnyMorganz.stylua",
+    "redhat.vscode-yaml",
+    "tacheometrist.testez-companion",
+    "evaera.vscode-rojo",
+    "DavidAnson.vscode-markdownlint",
+    "EditorConfig.EditorConfig"
+  ]
 }

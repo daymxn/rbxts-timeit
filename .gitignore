@@ -1,8 +1,8 @@
 node_modules
-out
 *.tsbuildinfo
-/docs
+out
 dist
 temp
-/tests/*.rbxl
+*.rbxl
 sourcemap.json
+include

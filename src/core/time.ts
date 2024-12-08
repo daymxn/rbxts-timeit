@@ -75,16 +75,21 @@ export enum TimeUnit {
  */
 export function convertSecondsTo(seconds: number, unit: TimeUnit) {
   switch (unit) {
-    case TimeUnit.NANOSECONDS:
+    case TimeUnit.NANOSECONDS: {
       return seconds * 1e9;
-    case TimeUnit.MICROSECONDS:
+    }
+    case TimeUnit.MICROSECONDS: {
       return seconds * 1e6;
-    case TimeUnit.MILLISECONDS:
+    }
+    case TimeUnit.MILLISECONDS: {
       return seconds * 1e3;
-    case TimeUnit.SECONDS:
+    }
+    case TimeUnit.SECONDS: {
       return seconds;
-    case TimeUnit.MINUTES:
+    }
+    case TimeUnit.MINUTES: {
       return seconds / 60;
+    }
   }
 }
 

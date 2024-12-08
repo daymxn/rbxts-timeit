@@ -1,17 +1,12 @@
 {
-    "extends": "./tsconfig.json",
-    "compilerOptions": {
-      "outDir": "out"
-    },
-    "include": [
-        "src/**/*.ts"
-    ],
-    "exclude": [
-        "example/**/*",
-	    "out/**/*",
-	    "wiki/**/*",
-	    "scripts/**/*",
-        "**/*.spec.ts"
-    ]
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "out"
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.spec.ts"
+  ]
 }
-  

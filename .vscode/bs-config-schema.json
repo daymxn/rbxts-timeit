@@ -1,0 +1,334 @@
+{
+  "$ref": "#/definitions/Config",
+  "definitions": {
+    "Config": {
+      "type": "object",
+      "properties": {
+        "api": {
+          "type": "object",
+          "properties": {
+            "apiDir": {
+              "type": "string",
+              "default": "./api",
+              "description": "Directory where <project>.api.md files will be stored."
+            },
+            "apiFile": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "default": null,
+              "description": "Explicit path to an .api.md file to use."
+            },
+            "report": {
+              "type": "string",
+              "default": "./api-diff.txt",
+              "description": "File to save API reports to."
+            },
+            "rollup": {
+              "type": "string",
+              "default": "./dist/index.d.ts",
+              "description": "Path to the generated rollup."
+            },
+            "source": {
+              "type": "string",
+              "default": "./src/index.ts",
+              "description": "Root index file for the library."
+            },
+            "transformers": {
+              "type": "object",
+              "properties": {
+                "combineModuleAugmentations": {
+                  "type": "boolean",
+                  "default": true,
+                  "description": "Combine module augmentations under the same namespace."
+                },
+                "fixIdentifierNames": {
+                  "type": "boolean",
+                  "default": true,
+                  "description": "Remove the leading `$` from identifier names when present."
+                },
+                "packageDocs": {
+                  "type": "boolean",
+                  "default": true,
+                  "description": "Prepend the package documentation from the index file to the rollup file."
+                }
+              },
+              "additionalProperties": false,
+              "description": "Configuration for rollup transformers."
+            }
+          },
+          "additionalProperties": false,
+          "description": "Configuration for API related commands."
+        },
+        "docs": {
+          "type": "object",
+          "properties": {
+            "apiFolder": {
+              "type": "string",
+              "default": "./dist",
+              "description": "Folder containing *.api.json files from api-extractor."
+            },
+            "output": {
+              "type": "string",
+              "default": "./dist/docs",
+              "description": "Folder to store generated markdown files to."
+            },
+            "wikiPath": {
+              "type": "string",
+              "default": "./wiki/docs/api",
+              "description": "Path to the docs section of the wiki where API files are stored."
+            }
+          },
+          "additionalProperties": false,
+          "description": "Configuration for wiki related commands."
+        },
+        "global": {
+          "type": "object",
+          "properties": {
+            "build": {
+              "type": "boolean",
+              "default": true,
+              "description": "Toggle build related tasks."
+            },
+            "dev": {
+              "type": "boolean",
+              "default": false,
+              "description": "Use the dev build of your library."
+            },
+            "docs": {
+              "type": "boolean",
+              "default": true,
+              "description": "Toggle jsdoc/wiki related tasks."
+            },
+            "json": {
+              "type": [
+                "boolean",
+                "null"
+              ],
+              "default": null,
+              "description": "Toggle JSON only responses."
+            },
+            "logLevel": {
+              "type": "string",
+              "enum": [
+                "trace",
+                "debug",
+                "info",
+                "warning",
+                "error"
+              ],
+              "default": "trace",
+              "description": "Set the minimum log level to log."
+            },
+            "rollup": {
+              "type": "boolean",
+              "default": true,
+              "description": "Toggle rollup related tasks."
+            },
+            "silence": {
+              "type": "boolean",
+              "default": true,
+              "description": "Disable logging from external tooling."
+            },
+            "trace": {
+              "type": "boolean",
+              "default": false,
+              "description": "Toggle stack trace logging for errors."
+            },
+            "tty": {
+              "type": [
+                "boolean",
+                "null"
+              ],
+              "default": null,
+              "description": "Force toggle TTY exclusive behaviors."
+            }
+          },
+          "additionalProperties": false,
+          "description": "Configuration for global flags."
+        },
+        "lint": {
+          "type": "object",
+          "properties": {
+            "cache": {
+              "type": "boolean",
+              "default": false,
+              "description": "Only check changed files."
+            },
+            "config": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "default": null,
+              "description": "Path to the eslint config file."
+            },
+            "patterns": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "default": [
+                "."
+              ],
+              "description": "Pattern to use in finding files to run against."
+            }
+          },
+          "additionalProperties": false,
+          "description": "Configuration for lint related commands."
+        },
+        "registry": {
+          "type": "object",
+          "properties": {
+            "global": {
+              "type": "boolean",
+              "default": true,
+              "description": "Install and manage packages verdaccio/pm2 in the global space."
+            },
+            "host": {
+              "type": "string",
+              "default": "0.0.0.0",
+              "description": "The host address to use for verdaccio."
+            },
+            "local": {
+              "type": "boolean",
+              "default": false,
+              "description": "Start the server locally instead of through pm2."
+            },
+            "name": {
+              "type": "string",
+              "default": "verdaccio",
+              "description": "Name to use for the pm2 app."
+            },
+            "pm2": {
+              "type": "boolean",
+              "default": true,
+              "description": "Install pm2 with pnpm."
+            },
+            "port": {
+              "type": "number",
+              "default": 4873,
+              "description": "The port number to use for verdaccio."
+            },
+            "scope": {
+              "type": "string",
+              "default": "@rbxts",
+              "description": "Only route for packages under a specific scope."
+            },
+            "verdaccio": {
+              "type": "boolean",
+              "default": true,
+              "description": "Install verdaccio with pnpm."
+            }
+          },
+          "additionalProperties": false,
+          "description": "Configuration for the local registry and related commands."
+        },
+        "release": {
+          "type": "object",
+          "properties": {
+            "autoPushTags": {
+              "type": "boolean",
+              "default": false,
+              "description": "Automatically push git tags after publishing."
+            },
+            "gitTags": {
+              "type": "boolean",
+              "default": true,
+              "description": "Create a git tag when publishing the package."
+            },
+            "ignorePackage": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "default": null,
+              "description": "Ignore changes from a specific package."
+            },
+            "local": {
+              "type": "boolean",
+              "default": false,
+              "description": "Publish to the local registry instead of the remote npm registry."
+            },
+            "snapshot": {
+              "type": "boolean",
+              "default": false,
+              "description": "Create a snapshot release."
+            },
+            "tag": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "default": null,
+              "description": "NPM tag to use when publishing the package."
+            }
+          },
+          "additionalProperties": false,
+          "description": "Configuration for release commands."
+        },
+        "tests": {
+          "type": "object",
+          "properties": {
+            "console": {
+              "type": "boolean",
+              "default": true,
+              "description": "Log the result of the tests to the console."
+            },
+            "jsonReportPath": {
+              "type": "string",
+              "default": "./report.json",
+              "description": "Export a copy of the test report as a json file."
+            },
+            "markdownReportPath": {
+              "type": "string",
+              "default": "./report.md",
+              "description": "Export a copy of the test report as a markdown file."
+            },
+            "rbxlOutputPath": {
+              "type": "string",
+              "default": "node_modules/@daymxn/bs/dist/assets/tests/test.rbxl",
+              "description": "Where to save the rbxl file generated from rojo to."
+            },
+            "rebuild": {
+              "type": "boolean",
+              "default": true,
+              "description": "Rebuild the test files before running tests."
+            },
+            "rojoProject": {
+              "type": "string",
+              "default": "./test.project.json",
+              "description": "Rojo project.json file to build with."
+            },
+            "showPass": {
+              "type": "boolean",
+              "default": true,
+              "description": "Show passed tests in the console output."
+            },
+            "showSkip": {
+              "type": "boolean",
+              "default": true,
+              "description": "Show skipped tests in the console output."
+            },
+            "testsPath": {
+              "type": "string",
+              "default": "node_modules/@daymxn/bs/dist/assets/tests/lune",
+              "description": "Directory with a lune script to invoke."
+            },
+            "trim": {
+              "type": "boolean",
+              "default": true,
+              "description": "If all tests share a common category, trim it from the output."
+            }
+          },
+          "additionalProperties": false,
+          "description": "Configuration for test related commands."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Configuration for the bs cli."
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}
