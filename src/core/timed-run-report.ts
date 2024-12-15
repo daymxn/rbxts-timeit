@@ -85,7 +85,7 @@ export class TimedRunReport implements TimedRunResults {
      * This is the run that took the longest
      * amount of time to finish.
      */
-    public readonly high: number
+    public readonly high: number,
   ) {}
 
   /**
@@ -122,7 +122,7 @@ export class TimedRunReport implements TimedRunResults {
       this.prepareResult("median", formatStr, config),
       this.prepareResult("low", formatStr, config),
       this.prepareResult("high", formatStr, config),
-      config.commas
+      config.commas,
     );
   }
 
@@ -190,10 +190,7 @@ export class TimedRunReport implements TimedRunResults {
    *
    * @public
    */
-  public compareTo(
-    name: string,
-    other: TimedRunReport
-  ): TimedRunReportComparison;
+  public compareTo(name: string, other: TimedRunReport): TimedRunReportComparison;
 
   /**
    * Constructs a new {@link TimedRunReportComparison} representing the
@@ -250,10 +247,7 @@ export class TimedRunReport implements TimedRunResults {
    */
   public compareTo(other: TimedRunReport): TimedRunReportComparison;
 
-  public compareTo(
-    arg1: string | TimedRunReport,
-    arg2?: TimedRunReport
-  ): TimedRunReportComparison {
+  public compareTo(arg1: string | TimedRunReport, arg2?: TimedRunReport): TimedRunReportComparison {
     let name: string;
     let other: TimedRunReport;
 
@@ -261,11 +255,7 @@ export class TimedRunReport implements TimedRunResults {
       name = arg1;
       other = arg2!;
     } else {
-      if (this.name === arg1.name) {
-        name = this.name;
-      } else {
-        name = `${this.name} => ${arg1.name}`;
-      }
+      name = this.name === arg1.name ? this.name : `${this.name} => ${arg1.name}`;
 
       other = arg1;
     }
@@ -286,13 +276,7 @@ export class TimedRunReport implements TimedRunResults {
     return flags.join("");
   }
 
-  private dumpToString(
-    average: string,
-    median: string,
-    low: string,
-    high: string,
-    commas: boolean
-  ): string {
+  private dumpToString(average: string, median: string, low: string, high: string, commas: boolean): string {
     const padding = string.rep("=", this.name.size() + 2);
 
     return `
@@ -311,34 +295,20 @@ High: ${high}
   /**
    * @internal
    */
-  protected prepareResult(
-    result: keyof TimedRunResults,
-    formatStr: string,
-    config: FormatOptions
-  ): string {
+  protected prepareResult(result: keyof TimedRunResults, formatStr: string, config: FormatOptions): string {
     const seconds = this[result];
 
     const unit = config.unit === "Auto" ? findBestUnit(seconds) : config.unit;
 
-    const formatted = string.format(
-      `${formatStr} ${unit}`,
-      convertSecondsTo(seconds, unit)
-    );
+    const formatted = string.format(`${formatStr} ${unit}`, convertSecondsTo(seconds, unit));
 
-    if (config.notation === Notation.FLOAT && config.commas) {
-      return toCommaString(formatted);
-    } else {
-      return formatted;
-    }
+    return config.notation === Notation.FLOAT && config.commas ? toCommaString(formatted) : formatted;
   }
 
   /**
    * @internal
    */
-  private compareToImpl(
-    name: string,
-    other: TimedRunReport
-  ): TimedRunReportComparison {
+  private compareToImpl(name: string, other: TimedRunReport): TimedRunReportComparison {
     return new TimedRunReportComparison(name, this, other);
   }
 
@@ -448,26 +418,15 @@ export class TimedRunReportComparison extends TimedRunReport {
      *
      * @see {@link TimedRunReportComparison.from | from}
      */
-    public readonly to: TimedRunReport
+    public readonly to: TimedRunReport,
   ) {
-    super(
-      name,
-      from.runs,
-      to.average - from.average,
-      to.median - from.median,
-      to.low - from.low,
-      to.high - from.high
-    );
+    super(name, from.runs, to.average - from.average, to.median - from.median, to.low - from.low, to.high - from.high);
   }
 
   /**
    * @internal
    */
-  protected override prepareResult(
-    result: keyof TimedRunResults,
-    formatStr: string,
-    config: FormatOptions
-  ): string {
+  protected override prepareResult(result: keyof TimedRunResults, formatStr: string, config: FormatOptions): string {
     if (!config.percent) return super.prepareResult(result, formatStr, config);
 
     return string.format(formatStr, this.percentDiff(result));

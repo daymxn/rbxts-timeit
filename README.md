@@ -42,7 +42,7 @@ const comparison = encodeReport.compareTo(stringReport);
 print(comparison.format({ precision: 2 }));
 ```
 
-![ROBLOX console output](./static/demo-output.png)
+![ROBLOX console output](./assets/demo-output.png)
 
 ## Installation
 

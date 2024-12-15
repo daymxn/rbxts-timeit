@@ -58,19 +58,19 @@ export = () => {
   describe("temp", () => {
     const sample = { name: "Daymon" };
 
-    let first: number | undefined = 1000000000;
-    let second: number | undefined = 1.211233123e15;
+    let first: number | undefined = 1_000_000_000;
+    let second: number | undefined = 1.211_233_123e15;
 
     const encodeReport = timeItReport("JSONEncode", () => {
       HttpService.JSONEncode(sample);
       if (first !== undefined) {
         FakeTimer.advanceBy(first);
         first = undefined;
-      } else if (second !== undefined) {
+      } else if (second === undefined) {
+        FakeTimer.advanceBy(1);
+      } else {
         FakeTimer.advanceBy(second);
         second = undefined;
-      } else {
-        FakeTimer.advanceBy(1);
       }
     });
 
@@ -129,9 +129,7 @@ export = () => {
 
         const combined = firstReport.compareTo(secondReport);
 
-        expect(combined.name)
-          .to.have.the.substring("First")
-          .and.the.substring("Second");
+        expect(combined.name).to.have.the.substring("First").and.the.substring("Second");
       });
 
       it("uses the provided name", () => {
@@ -236,7 +234,7 @@ High: 1000.000000 s
 
       it("provides the whole value when precision is undefined", () => {
         const report = timeItReport(() => {
-          FakeTimer.advanceBy(10.123456);
+          FakeTimer.advanceBy(10.123_456);
         });
 
         const format = report.format({

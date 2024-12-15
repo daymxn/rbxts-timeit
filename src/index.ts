@@ -1,4 +1,3 @@
-/* eslint-disable headers/header-format */
 /**
  * Performance timer for ROBLOX projects.
  *
@@ -27,11 +26,5 @@
  */
 
 export { timeIt, timeItReport } from "./api";
-export {
-  FormatOptions,
-  TimeUnit,
-  TimedRunReport,
-  TimedRunReportComparison,
-  TimedRunResults,
-} from "./core";
+export { FormatOptions, TimeUnit, TimedRunReport, TimedRunReportComparison, TimedRunResults } from "./core";
 export { Notation, TimedRun } from "./types";

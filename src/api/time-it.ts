@@ -52,10 +52,7 @@ export function timeIt(callback: Callback): TimedRun;
  */
 export function timeIt(name: string, callback: Callback): TimedRun;
 
-export function timeIt(
-  nameOrCallback: string | Callback,
-  maybeCallback?: Callback
-): TimedRun {
+export function timeIt(nameOrCallback: string | Callback, maybeCallback?: Callback): TimedRun {
   let name: string | undefined;
   let callback: Callback;
 

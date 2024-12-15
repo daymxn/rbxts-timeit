@@ -1,0 +1,60 @@
+{
+  "api": {
+    "apiDir": "./api",
+    "apiFile": null,
+    "report": "./api-diff.txt",
+    "rollup": "./out/index.d.ts",
+    "source": "./src/index.ts",
+    "transformers": {
+      "combineModuleAugmentations": true,
+      "fixIdentifierNames": true,
+      "packageDocs": true
+    }
+  },
+  "global": {
+    "build": true,
+    "dev": false,
+    "docs": false,
+    "json": null,
+    "logLevel": "info",
+    "rollup": false,
+    "silence": true,
+    "trace": false,
+    "tty": null
+  },
+  "lint": {
+    "cache": false,
+    "config": null,
+    "patterns": ["."]
+  },
+  "registry": {
+    "global": true,
+    "host": "0.0.0.0",
+    "local": false,
+    "name": "verdaccio",
+    "pm2": true,
+    "port": 4873,
+    "scope": "@rbxts",
+    "verdaccio": true
+  },
+  "release": {
+    "autoPushTags": false,
+    "gitTags": true,
+    "ignorePackage": null,
+    "local": false,
+    "snapshot": false,
+    "tag": null
+  },
+  "tests": {
+    "console": true,
+    "jsonReportPath": "./report.json",
+    "markdownReportPath": "./report.md",
+    "rbxlOutputPath": "node_modules/@daymxn/bs/dist/assets/tests/test.rbxl",
+    "rebuild": true,
+    "rojoProject": "./test.project.json",
+    "showPass": true,
+    "showSkip": true,
+    "testsPath": "node_modules/@daymxn/bs/dist/assets/tests/lune",
+    "trim": true
+  }
+}

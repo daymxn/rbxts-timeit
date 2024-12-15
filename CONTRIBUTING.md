@@ -8,7 +8,18 @@ some things you should know.
 
 ## Getting started
 
-Make sure you've given the [API Reference](api/timeit.api.md) a read before moving forward, such that you understand the design behind **timeIt**.
+Make sure you've given the [API Reference](api/timeit.api.md) a read before moving forward,
+such that you understand the design behind **timeit**.
+
+### Scripts
+
+We use the [bs-cli](https://github.com/daymxn/bs-cli) to organize our scripts.
+
+Run the help command to see a full list of options.
+
+```sh
+pnpm bs --help
+```
 
 ### Building
 
@@ -30,11 +41,18 @@ You can run tests either directly in Roblox Studio, or through the command line 
 
 #### Lune
 
-Run the `test` command to get an output of the tests to your console.
+Use the `test` command to run unit tests inside lune.
 
 ```sh
 pnpm test
 ```
+
+> [!TIP]
+> If you want more control over the test run, you can check out the test options in `bs`.
+>
+> ```sh
+> pnpm bs test --help
+> ```
 
 #### Roblox studio
 
@@ -48,6 +66,14 @@ Serve `test.project.json` with rojo and link with an empty base plate in roblox 
 
 Finally, use the shortcut `ctrl` + `:` with the [Test EZ Companion](https://github.com/tacheometry/testez-companion) plugin
 to run the tests.
+
+### Public API
+
+For syncing the API, you can run the `bs api` command from the root directory.
+
+```sh
+pnpm bs api
+```
 
 ## Making changes
 
@@ -64,10 +90,16 @@ via the [GitHub web panel](https://github.com/daymxn/rbxts-timeit/compare).
 
 ### Code Formatting
 
-Code in this repo is formatted according to eslint and prettier. You can use the attached `.vscode` folder for automatically formatting on file save, or you can manually run both via the command line with the `format` or `lint` scripts:
+Code in this repo is formatted according to eslint and prettier.
+You can use the attached `.vscode` folder for automatically formatting on file save,
+or you can manually run both via the command line with the `bs format` and `bs lint` scripts:
 
 ```sh
-pnpm format
+pnpm bs format
+```
+
+```sh
+pnpm bs lint
 ```
 
 ### Changesets
@@ -75,13 +107,13 @@ pnpm format
 We use [changesets](https://github.com/changesets/changesets) for our release notes and version bumping.
 
 When submitting a change that should be apart of a release, you
-can run the `change` script.
+can run the `bs change` script.
 
 ```sh
-pnpm change
+pnpm bs change
 ```
 
-It will prompt you with options for setting the message and version type.
+The script will prompt you with options for setting the message and version type.
 
 > [!IMPORTANT]
 > If your change impacts the public API, ensure you're choosing the appropriate version type (according to [semver](https://semver.org/)).
@@ -96,25 +128,19 @@ It will prompt you with options for setting the message and version type.
 
 #### Additional Commands
 
-Output [to stdout] a summary of the pending changes for a release.
+You can check out the help section of `bs change` to see a list of available commands.
 
 ```sh
-pnpm change:status
-```
-
-Export the pending changes to a `changes.json` file at the root directory.
-
-```sh
-pnpm change:export
+pnpm bs change --help
 ```
 
 ### Releasing
 
 To invoke a release, you'll need to pull the `main` branch
-and run the `release:version` command.
+and run the `bs change:version` command.
 
 ```sh
-pnpm release:version
+pnpm bs change:version
 ```
 
 This will automatically bump the releasing projects.
@@ -123,13 +149,19 @@ After merging these changes back into `main`, you can move forward
 with the actual publishing.
 
 ```sh
-pnpm release
+pnpm bs publish
 ```
 
-This will publish the releasing projects to pnpm, with the generated changelogs.
+This will publish the releasing projects to npm, with the generated changelogs.
 
-The last step will be pushing the release tags back to the repo.
+#### Git tags
+
+If you generate git tags for the release, but have auto push disabled for publish,
+you can manually push the tags with the `bs publish:tags` command.
 
 ```sh
-pnpm release:tags
+pnpm bs publish:tags
 ```
+
+This will also automatically generate them for you, if you had git tags disabled completely
+when pushing the release.

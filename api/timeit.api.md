@@ -51,6 +51,7 @@ export class TimedRunReport implements TimedRunResults {
     // @internal (undocumented)
     protected prepareResult(result: keyof TimedRunResults, formatStr: string, config: FormatOptions): string;
     readonly runs: number;
+    toString(): string;
 }
 
 // @public

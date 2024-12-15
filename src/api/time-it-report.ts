@@ -35,11 +35,7 @@ import type { timeIt } from "./time-it";
  *
  * @public
  */
-export function timeItReport(
-  name: string,
-  runs: number,
-  callback: Callback
-): TimedRunReport;
+export function timeItReport(name: string, runs: number, callback: Callback): TimedRunReport;
 
 /**
  * Creates a report of the time it takes to run the callback.
@@ -101,10 +97,10 @@ export function timeItReport(callback: Callback): TimedRunReport;
 export function timeItReport(
   arg1: string | number | Callback,
   arg2?: number | Callback,
-  arg3?: Callback
+  arg3?: Callback,
 ): TimedRunReport {
   let name: string = "Timed Run Report";
-  let runs: number = 10000;
+  let runs: number = 10_000;
   let callback: Callback;
 
   if (typeIs(arg1, "string")) {

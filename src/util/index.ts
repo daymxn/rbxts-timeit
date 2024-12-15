@@ -41,12 +41,7 @@ export function numberToCommaString(num: number): string {
 export function toCommaString(num: string): string {
   const elements = string.split(num, ".");
   if (elements.size() === 1) {
-    return num
-      .reverse()
-      .gsub("%d%d%d", "%1,")[0]
-      .reverse()
-      .gsub("^,", "")[0]
-      .gsub("^-,", "-")[0];
+    return num.reverse().gsub("%d%d%d", "%1,")[0].reverse().gsub("^,", "")[0].gsub("^-,", "-")[0];
   } else {
     const base = elements[0];
     const decimal = elements[1];
